@@ -23,5 +23,7 @@ namespace Fat_DeliaGabriela_Lab2.Models
 
         public int? AuthorId     { get; set; }  
         public Author? Author { get; set; }
+        public ICollection<BookCategory>? BookCategories { get; set; }
+
     }
 }
