@@ -19,31 +19,30 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get; set; } = default!;
-
+        public IList<Book> Book { get; set; }
         public BookData BookD { get; set; }
-        public int BookId { get; set; }
+        public int BookID { get; set; }
         public int CategoryId { get; set; }
-        public async Task OnGetAsync(int? id, int? categoryId)
+        public async Task OnGetAsync(int? id, int? categoryID)
         {
             BookD = new BookData();
-
             BookD.Books = await _context.Book
-            .Include(b => b.Publisher)
-            .Include(b => b.BookCategories)
-            .ThenInclude(b => b.Category)
-            .AsNoTracking()
-            .OrderBy(b => b.Title)
-            .ToListAsync();
+                .Include(b => b.Publisher)
+                .Include(b => b.Author)
+                .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+                .AsNoTracking()
+                .OrderBy(b => b.Title)
+                .ToListAsync();
             if (id != null)
             {
-                BookId = id.Value;
+                BookID = id.Value;
                 Book book = BookD.Books
-                .Where(i => i.Id == id.Value).Single();
+                    .Where(i => i.Id == id.Value).Single();
                 BookD.Categories = book.BookCategories.Select(s => s.Category);
             }
         }
     }
 }
 
-    
+
