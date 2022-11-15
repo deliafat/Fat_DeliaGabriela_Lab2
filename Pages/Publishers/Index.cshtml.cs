@@ -20,24 +20,24 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Publishers
             _context = context;
         }
 
-        public IList<Publisher> Publisher { get;set; } = default!;
-
+        public IList<Publisher> Publisher { get; set; } = default!;
         public PublisherIndexData PublisherData { get; set; }
         public int PublisherID { get; set; }
         public int BookID { get; set; }
+
         public async Task OnGetAsync(int? id, int? bookID)
         {
             PublisherData = new PublisherIndexData();
             PublisherData.Publishers = await _context.Publisher
-            .Include(i => i.Books)
-            .ThenInclude(c => c.Author)
-            .OrderBy(i => i.PublisherName)
-            .ToListAsync();
+                .Include(i => i.Books)
+                .ThenInclude(c => c.Author)
+                .OrderBy(i => i.PublisherName)
+                .ToListAsync();
             if (id != null)
             {
                 PublisherID = id.Value;
                 Publisher publisher = PublisherData.Publishers
-                .Where(i => i.Id == id.Value).Single();
+                    .Where(i => i.Id == id.Value).Single();
                 PublisherData.Books = publisher.Books;
             }
         }

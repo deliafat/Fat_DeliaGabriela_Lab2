@@ -16,7 +16,6 @@ namespace Fat_DeliaGabriela_Lab2.Models
                 return FirstName + " " + LastName;
             }
         }
-
-        public ICollection<Book>? Books { get; set; } 
+        public ICollection<Book>? Books { get; set; }
     }
 }
