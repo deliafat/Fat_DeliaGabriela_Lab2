@@ -19,9 +19,8 @@
                 <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Book.AuthorId" class="control-label">Author</label>
-                <select asp-for="Book.AuthorId" class="form-control" asp-items="ViewBag.AuthorId">
-                </select>
+                <label asp-for="Book.AuthorId" class="control-label">Author Name</label>
+                <select asp-for="Book.AuthorId" class="form-control" asp-items="ViewBag.AuthorId"> </select>
                 <span asp-validation-for="Book.AuthorId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,12 +31,11 @@
             <div class="form-group">
                 <label asp-for="Book.PublishingDate" class="control-label"></label>
                 <input asp-for="Book.PublishingDate" class="form-control" />
-                <span asp-validation-for="Book.PublishingDate" class="textdanger"></span>
+                <span asp-validation-for="Book.PublishingDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Book.PublisherId" class="control-label">Publisher Name</label>
-                <select asp-for="Book.PublisherId" class="form-control" asp-items="ViewBag.PublisherId">
-                </select>
+                <select asp-for="Book.PublisherId" class="form-control" asp-items="ViewBag.PublisherID"> </select>
                 <span asp-validation-for="Book.PublisherId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,5 +50,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

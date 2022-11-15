@@ -19,17 +19,16 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Book> Book { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null!)
+            if (_context.Book != null)
             {
                 Book = await _context.Book
-                    .Include(b => b.Author)
                     .Include(b => b.Publisher)
+                    .Include(b => b.Author)
                     .ToListAsync();
-               
             }
         }
     }
