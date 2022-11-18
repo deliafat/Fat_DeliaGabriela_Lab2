@@ -23,169 +23,244 @@ namespace Fat_DeliaGabriela_Lab2.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Author");
-                });
+                b.ToTable("Author");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
+                b.Property<int?>("AuthorId")
+                    .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(6,2)");
+                b.Property<decimal>("Price")
+                    .HasColumnType("decimal(6,2)");
 
-                    b.Property<int?>("PublisherId")
-                        .HasColumnType("int");
+                b.Property<int?>("PublisherId")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("PublishingDate")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("PublishingDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Title")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                b.HasIndex("AuthorId");
 
-                    b.HasIndex("PublisherId");
+                b.HasIndex("PublisherId");
 
-                    b.ToTable("Book");
-                });
+                b.ToTable("Book");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.BookCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
+                b.Property<int>("BookId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                b.Property<int>("CategoryId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("BookId");
+                b.HasIndex("BookId");
 
-                    b.HasIndex("CategoryId");
+                b.HasIndex("CategoryId");
 
-                    b.ToTable("BookCategory");
-                });
+                b.ToTable("BookCategory");
+            });
+
+            modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Borrowing", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                b.Property<int?>("BookId")
+                    .HasColumnType("int");
+
+                b.Property<int?>("MemberId")
+                    .HasColumnType("int");
+
+                b.Property<DateTime>("ReturnDate")
+                    .HasColumnType("datetime2");
+
+                b.HasKey("Id");
+
+                b.HasIndex("BookId");
+
+                b.HasIndex("MemberId");
+
+                b.ToTable("Borrowing");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CategoryName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Category");
-                });
+                b.ToTable("Category");
+            });
+
+            modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Member", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                b.Property<string>("Adress")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("FirstName")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("LastName")
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<string>("Phone")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Member");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("PublisherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PublisherName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Publisher");
-                });
+                b.ToTable("Publisher");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Book", b =>
-                {
-                    b.HasOne("Fat_DeliaGabriela_Lab2.Models.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId");
+            {
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Author", "Author")
+                    .WithMany("Books")
+                    .HasForeignKey("AuthorId");
 
-                    b.HasOne("Fat_DeliaGabriela_Lab2.Models.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId");
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Publisher", "Publisher")
+                    .WithMany("Books")
+                    .HasForeignKey("PublisherId");
 
-                    b.Navigation("Author");
+                b.Navigation("Author");
 
-                    b.Navigation("Publisher");
-                });
+                b.Navigation("Publisher");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.BookCategory", b =>
-                {
-                    b.HasOne("Fat_DeliaGabriela_Lab2.Models.Book", "Book")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Book", "Book")
+                    .WithMany("BookCategories")
+                    .HasForeignKey("BookId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("Fat_DeliaGabriela_Lab2.Models.Category", "Category")
-                        .WithMany("BookCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Category", "Category")
+                    .WithMany("BookCategories")
+                    .HasForeignKey("CategoryId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Book");
+                b.Navigation("Book");
 
-                    b.Navigation("Category");
-                });
+                b.Navigation("Category");
+            });
+
+            modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Borrowing", b =>
+            {
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Book", "Book")
+                    .WithMany()
+                    .HasForeignKey("BookId");
+
+                b.HasOne("Fat_DeliaGabriela_Lab2.Models.Member", "Member")
+                    .WithMany("Borrowings")
+                    .HasForeignKey("MemberId");
+
+                b.Navigation("Book");
+
+                b.Navigation("Member");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Author", b =>
-                {
-                    b.Navigation("Books");
-                });
+            {
+                b.Navigation("Books");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Book", b =>
-                {
-                    b.Navigation("BookCategories");
-                });
+            {
+                b.Navigation("BookCategories");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Category", b =>
-                {
-                    b.Navigation("BookCategories");
-                });
+            {
+                b.Navigation("BookCategories");
+            });
+
+            modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Member", b =>
+            {
+                b.Navigation("Borrowings");
+            });
 
             modelBuilder.Entity("Fat_DeliaGabriela_Lab2.Models.Publisher", b =>
-                {
-                    b.Navigation("Books");
-                });
+            {
+                b.Navigation("Books");
+            });
 #pragma warning restore 612, 618
         }
     }

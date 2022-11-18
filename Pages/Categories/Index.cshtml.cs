@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Fat_DeliaGabriela_Lab2.Data;
 using Fat_DeliaGabriela_Lab2.Models;
+using Fat_DeliaGabriela_Lab2.Models.ViewModels;
 
 namespace Fat_DeliaGabriela_Lab2.Pages.Categories
 {
@@ -19,15 +20,25 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Categories
             _context = context;
         }
 
-        public IList<BookCategory> BookCategory { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public IList<Category> Category { get; set; } = default!;
+        public CategoryIndexData CategoryData { get; set; }
+        public int CategoryID { get; set; }
+        public int BookId { get; set; }
+        public async Task OnGetAsync(int? id, int? bookID)
         {
-            if (_context.BookCategory != null)
+            CategoryData = new CategoryIndexData();
+            CategoryData.Categories = await _context.Category
+            .Include(i => i.BookCategories)
+            .ThenInclude(i => i.Book)
+            .ThenInclude(i => i.Author)
+            .OrderBy(i => i.CategoryName)
+            .ToListAsync();
+            if (id != null)
             {
-                BookCategory = await _context.BookCategory
-                .Include(b => b.Book)
-                .Include(b => b.Category).ToListAsync();
+                CategoryID = id.Value;
+                Category category = CategoryData.Categories
+                .Where(i => i.Id == id.Value).Single();
+                CategoryData.BookCategories = category.BookCategories;
             }
         }
     }

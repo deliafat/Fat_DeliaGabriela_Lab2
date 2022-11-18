@@ -19,26 +19,22 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get; set; } = default!;
-
+        public IList<Book> Book { get; set; }
         public BookData BookD { get; set; }
-        public int BookId { get; set; }
+        public int BookID { get; set; }
         public int CategoryId { get; set; }
         public string TitleSort { get; set; }
         public string AuthorSort { get; set; }
         public string CurrentFilter { get; set; }
-
-        public async Task OnGetAsync(int? id, int? categoryId, string sortOrder, string
-searchString)
+        public async Task OnGetAsync(int? id, int? categoryId, string sortOrder, string searchString)
         {
             BookD = new BookData();
+            // using System;
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             AuthorSort = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
             CurrentFilter = searchString;
-
-
-
             BookD.Books = await _context.Book
+            .Include(b => b.Author)
             .Include(b => b.Publisher)
             .Include(b => b.BookCategories)
             .ThenInclude(b => b.Category)
@@ -49,12 +45,12 @@ searchString)
             {
                 BookD.Books = BookD.Books.Where(s => s.Author.FirstName.Contains(searchString)
 
-               || s.Author.LastName.Contains(searchString)
+               || s.Author.FullName.Contains(searchString)
                || s.Title.Contains(searchString));
             }
-                if (id != null)
+            if (id != null)
             {
-                BookId = id.Value;
+                BookID = id.Value;
                 Book book = BookD.Books
                 .Where(i => i.Id == id.Value).Single();
                 BookD.Categories = book.BookCategories.Select(s => s.Category);
@@ -62,17 +58,12 @@ searchString)
             switch (sortOrder)
             {
                 case "title_desc":
-                    BookD.Books = BookD.Books.OrderByDescending(s =>
-                   s.Title);
+                    BookD.Books = BookD.Books.OrderByDescending(s => s.Title);
                     break;
                 case "author_desc":
-                    BookD.Books = BookD.Books.OrderByDescending(s =>
-                   s.Author.FullName);
+                    BookD.Books = BookD.Books.OrderByDescending(s => s.Author.FullName);
                     break;
             }
-
         }
-
     }
 }
-

@@ -36,8 +36,16 @@ namespace Fat_DeliaGabriela_Lab2.Pages.Borrowings
                 return NotFound();
             }
             Borrowing = borrowing;
-            ViewData["BookId"] = new SelectList(_context.Book, "Id", "Id");
-            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "Id");
+            var bookList = _context.Book
+            .Include(b => b.Author)
+            .Select(x => new
+            {
+                x.Id,
+                BookFullName = x.Title + " - " + x.Author.LastName + " " +
+                x.Author.FirstName
+            });
+            ViewData["BookId"] = new SelectList(bookList, "Id", "BookFullName");
+            ViewData["MemberId"] = new SelectList(_context.Member, "Id", "FullName");
             return Page();
         }
 
